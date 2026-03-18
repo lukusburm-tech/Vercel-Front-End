@@ -1,0 +1,2207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeVault • South Africa | Premium Lifestyle Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+        
+        :root {
+            --gold: #f59e0b;
+            --teal: #14b8a6;
+            --neon-gold: #ffd700;
+        }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: #09090b;
+            overflow-x: hidden;
+        }
+        
+        .font-display { font-family: 'Space Grotesk', sans-serif; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #18181b; }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(245, 158, 11, 0.8); }
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+        
+        /* Glass Effects */
+        .glass { 
+            background: rgba(255,255,255,0.05); 
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .glass-strong { 
+            background: rgba(24,24,27,0.95); 
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Gold Gradients */
+        .gold-gradient {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #f59e0b 100%);
+            background-size: 200% 200%;
+            animation: shimmer 3s linear infinite;
+        }
+        
+        .text-gold-gradient {
+            background: linear-gradient(to right, #f59e0b, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shimmer 3s linear infinite;
+        }
+        
+        /* Mobile Menu */
+        #mobile-menu { 
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100vh;
+            width: 320px;
+            background: linear-gradient(to bottom, #18181b, #09090b);
+            border-left: 2px solid rgba(245, 158, 11, 0.3);
+            z-index: 60;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: -10px 0 40px rgba(0,0,0,0.9);
+        }
+        
+        #mobile-menu.active { transform: translateX(0); }
+        
+        #mobile-menu-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(8px);
+            z-index: 55;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        #mobile-menu-backdrop.active { opacity: 1; visibility: visible; }
+        
+        body.menu-open { overflow: hidden; }
+        
+        /* Promo Banner */
+        .promo-banner {
+            background: linear-gradient(90deg, #f59e0b, #14b8a6, #f59e0b);
+            background-size: 200% 100%;
+            animation: shimmer 5s linear infinite;
+        }
+        
+        /* Cart Dropdown Enhanced */
+        #cart-dropdown, #wishlist-dropdown {
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .cart-item, .wishlist-item {
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+        
+        .cart-item:hover {
+            background: rgba(245, 158, 11, 0.05);
+            border-left-color: var(--gold);
+            transform: translateX(4px);
+        }
+        
+        /* Product Cards 2026 Style */
+        .product-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(245,158,11,0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(245, 158, 11, 0.2);
+        }
+        
+        .product-card:hover::before { opacity: 1; }
+        
+        .badge-pulse {
+            animation: pulse-glow 2s infinite;
+        }
+        
+        /* Quantity Controls */
+        .qty-btn { 
+            cursor: pointer; 
+            transition: all 0.15s ease; 
+        }
+        .qty-btn:hover { 
+            background: rgba(245, 158, 11, 0.2); 
+            color: #f59e0b; 
+        }
+        .qty-btn:active { transform: scale(0.9); }
+        
+        /* Add to Cart Button */
+        .add-to-cart-btn {
+            cursor: pointer; 
+            transition: all 0.2s ease;
+            position: relative; 
+            overflow: hidden;
+        }
+        .add-to-cart-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4);
+        }
+        .add-to-cart-btn:active { transform: scale(0.98); }
+        .add-to-cart-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Wishlist Heart Animation */
+        .wishlist-heart {
+            transition: all 0.3s ease;
+        }
+        .wishlist-heart.active {
+            color: #ec4899;
+            animation: heartPulse 0.3s ease;
+        }
+        @keyframes heartPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Sticky Promo Bar */
+        .sticky-promo {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 40;
+            max-width: 90%;
+            width: auto;
+        }
+        
+        /* Checkout Modal */
+        #checkout-modal {
+            backdrop-filter: blur(12px);
+        }
+        
+        .input-glow:focus {
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3);
+            border-color: var(--gold);
+        }
+        
+        /* Toast Enhanced */
+        #toast {
+            animation: slideInRight 0.4s ease forwards;
+            border-left: 4px solid var(--gold);
+        }
+        
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Neon Text Effect */
+        .neon-text {
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.5),
+                         0 0 20px rgba(245, 158, 11, 0.3),
+                         0 0 30px rgba(245, 158, 11, 0.2);
+        }
+        
+        /* Confetti Animation */
+        @keyframes confetti {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #f59e0b;
+            animation: confetti 3s ease-out forwards;
+            z-index: 9999;
+        }
+        
+        /* Themed Modal */
+        #clear-cart-modal, #user-modal, #privacy-modal, #terms-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(8px);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        #clear-cart-modal.active, #user-modal.active, #privacy-modal.active, #terms-modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #18181b 0%, #09090b 100%);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 40px rgba(245, 158, 11, 0.1);
+            animation: modalSlideIn 0.3s ease;
+        }
+        
+        /* Legal Modal Specific Styles */
+        .legal-modal-content {
+            background: linear-gradient(135deg, #18181b 0%, #09090b 100%);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 24px;
+            padding: 0;
+            max-width: 700px;
+            width: 100%;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 40px rgba(245, 158, 11, 0.1);
+            animation: modalSlideIn 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .legal-modal-header {
+            padding: 24px 32px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(245, 158, 11, 0.05);
+        }
+        
+        .legal-modal-body {
+            padding: 32px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #f59e0b #18181b;
+        }
+        
+        .legal-modal-body::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .legal-modal-body::-webkit-scrollbar-track {
+            background: #18181b;
+        }
+        
+        .legal-modal-body::-webkit-scrollbar-thumb {
+            background: #f59e0b;
+            border-radius: 4px;
+        }
+        
+        .legal-section {
+            margin-bottom: 24px;
+        }
+        
+        .legal-section h4 {
+            color: #f59e0b;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .legal-section p, .legal-section ul {
+            color: #a1a1aa;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .legal-section ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-top: 8px;
+        }
+        
+        .legal-section li {
+            margin-bottom: 4px;
+        }
+        
+        @keyframes modalSlideIn {
+            from { transform: translateY(-20px) scale(0.95); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+        
+        .modal-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: #ef4444;
+            font-size: 28px;
+        }
+        
+        .modal-btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            font-size: 14px;
+        }
+        
+        .modal-btn-cancel {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .modal-btn-cancel:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .modal-btn-confirm {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+        .modal-btn-confirm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+        }
+        
+        /* Search Dropdown */
+        #search-suggestions {
+            scrollbar-width: thin;
+            scrollbar-color: #f59e0b #18181b;
+        }
+        #search-suggestions::-webkit-scrollbar {
+            width: 6px;
+        }
+        #search-suggestions::-webkit-scrollbar-thumb {
+            background: #f59e0b;
+            border-radius: 3px;
+        }
+        
+        /* Recently Viewed Scroll */
+        .recent-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+        .recent-scroll::-webkit-scrollbar-track {
+            background: #18181b;
+        }
+        .recent-scroll::-webkit-scrollbar-thumb {
+            background: #f59e0b;
+            border-radius: 3px;
+        }
+        
+        /* User Badge */
+        .user-badge {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+    </style>
+</head>
+<body class="text-white antialiased">
+
+    <!-- Top Promo Banner -->
+    <div class="promo-banner text-black text-center py-2 px-4 text-sm font-bold tracking-wide relative overflow-hidden">
+        <div class="flex items-center justify-center gap-2 animate-pulse">
+            <span class="text-lg">🔥</span>
+            <span>2026 LAUNCH SPECIAL: 30% OFF WITH CODE </span>
+            <span class="bg-black text-white px-2 py-0.5 rounded font-mono mx-1">VIBE30</span>
+            <span class="hidden sm:inline">| ENDS IN:</span>
+            <div class="flex gap-1 ml-2 font-mono text-sm" id="countdown">
+                <span class="bg-black text-white px-1.5 rounded">04</span>:
+                <span class="bg-black text-white px-1.5 rounded">23</span>:
+                <span class="bg-black text-white px-1.5 rounded">59</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Search & Filter Section (Sticky) -->
+    <section class="py-4 bg-zinc-900/80 border-y border-white/5 sticky top-0 z-40 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex flex-col md:flex-row gap-3 items-center justify-between">
+                <!-- Search -->
+                <div class="relative w-full md:w-96">
+                    <input type="text" id="product-search" placeholder="Search products (e.g., 'watch', 'hoodie')..." 
+                        class="w-full bg-zinc-800 border border-zinc-700 rounded-full px-5 py-2.5 pl-12 focus:border-amber-500 focus:outline-none transition text-sm"
+                        onkeyup="Search.handleInput(this.value)" autocomplete="off">
+                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500"></i>
+                    <div id="search-suggestions" class="hidden absolute top-full left-0 right-0 mt-2 bg-zinc-800 rounded-xl border border-zinc-700 shadow-2xl z-50 max-h-60 overflow-y-auto"></div>
+                </div>
+                
+                <!-- Filters -->
+                <div class="flex gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 no-scrollbar">
+                    <select id="price-filter" onchange="Search.applyFilters()" class="bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-amber-500 outline-none cursor-pointer whitespace-nowrap">
+                        <option value="">All Prices</option>
+                        <option value="0-200">Under R200</option>
+                        <option value="200-500">R200 - R500</option>
+                        <option value="500+">R500+</option>
+                    </select>
+                    
+                    <select id="sort-filter" onchange="Search.applyFilters()" class="bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-amber-500 outline-none cursor-pointer whitespace-nowrap">
+                        <option value="featured">Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="newest">Newest</option>
+                    </select>
+                    
+                    <button onclick="Search.clearFilters()" class="px-3 py-2 text-zinc-400 hover:text-white text-sm transition whitespace-nowrap">
+                        <i class="fas fa-undo mr-1"></i>Reset
+                    </button>
+                </div>
+                
+                <!-- Results Count -->
+                <div id="results-count" class="hidden md:block text-zinc-400 text-sm whitespace-nowrap">
+                    Showing <span id="showing-count" class="text-amber-500 font-bold">8</span> products
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Glass Navbar -->
+    <nav class="glass sticky top-[72px] z-30 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-amber-500 to-teal-500 rounded-full blur opacity-50 group-hover:opacity-100 transition"></div>
+                    <div class="h-10 w-10 rounded-full bg-zinc-900 relative z-10 flex items-center justify-center text-amber-500 font-bold text-xl">V</div>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold tracking-tighter text-gold-gradient font-display">VibeVault</h1>
+                    <p class="text-xs text-zinc-400 -mt-1">Est. 2026</p>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex gap-8 text-sm font-medium items-center">
+                <a href="#shop" class="hover:text-amber-500 transition-colors relative group">
+                    Shop
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-500 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#about" class="hover:text-amber-500 transition-colors relative group">
+                    About
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-500 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#testimonials" class="hover:text-amber-500 transition-colors relative group">
+                    Reviews
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-500 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#contact" class="hover:text-amber-500 transition-colors relative group">
+                    Contact
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-500 transition-all group-hover:w-full"></span>
+                </a>
+            </div>
+            
+            <div class="flex items-center gap-2">
+                <!-- User Account (Placeholder for future auth) -->
+                <div onclick="toggleUserModal()" class="relative cursor-pointer group p-2 hover:bg-white/5 rounded-full transition" title="My Account">
+                    <span class="text-xl">👤</span>
+                    <span id="user-badge" class="absolute top-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-zinc-900 hidden"></span>
+                </div>
+                
+                <!-- Wishlist -->
+                <div onclick="toggleWishlist()" class="relative cursor-pointer group p-2 hover:bg-white/5 rounded-full transition" title="Wishlist">
+                    <span class="text-xl group-hover:scale-110 transition-transform">❤️</span>
+                    <span id="wishlist-count" class="absolute top-0 right-0 bg-pink-500 text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full hidden">0</span>
+                </div>
+                
+                <!-- Cart -->
+                <div onclick="toggleCartDropdown()" class="relative cursor-pointer group p-2 hover:bg-white/5 rounded-full transition">
+                    <div class="absolute inset-0 bg-amber-500 rounded-full blur opacity-0 group-hover:opacity-30 transition"></div>
+                    <span class="text-2xl relative z-10">🛒</span>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-gradient-to-r from-amber-500 to-orange-600 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full badge-pulse">0</span>
+                </div>
+                
+                <button onclick="toggleMobileMenu()" class="md:hidden text-2xl hover:text-amber-500 transition-colors p-2">☰</button>
+            </div>
+        </div>
+
+        <!-- Enhanced Cart Dropdown -->
+        <div id="cart-dropdown" class="hidden absolute right-4 top-16 glass-strong rounded-2xl p-6 w-full max-w-md shadow-2xl z-50 border border-amber-500/20">
+            <div class="flex justify-between items-center mb-4 pb-3 border-b border-white/10">
+                <h4 class="font-display font-bold text-xl text-gold-gradient">Your Cart</h4>
+                <button onclick="toggleCartDropdown()" class="text-zinc-400 hover:text-white">✕</button>
+            </div>
+            
+            <div id="cart-items" class="max-h-64 overflow-y-auto space-y-3 mb-4"></div>
+            
+            <!-- Promo Code Input -->
+            <div class="mb-4 p-3 bg-zinc-800/50 rounded-xl border border-white/5">
+                <label class="text-xs text-zinc-400 uppercase tracking-wider font-semibold mb-1 block">Promo Code</label>
+                <div class="flex gap-2">
+                    <input type="text" id="promo-input" placeholder="Try 'VIBE30'" class="flex-1 bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-amber-500 transition uppercase">
+                    <button onclick="applyPromo()" class="bg-zinc-700 hover:bg-amber-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition cursor-pointer">Apply</button>
+                </div>
+                <p id="promo-message" class="text-xs mt-1 hidden"></p>
+            </div>
+
+            <div class="border-t border-white/10 pt-4 space-y-2">
+                <div class="flex justify-between text-zinc-400 text-sm">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal">R0</span>
+                </div>
+                <div class="flex justify-between text-amber-500 text-sm hidden" id="discount-row">
+                    <span>Discount (30%)</span>
+                    <span id="discount-amount">-R0</span>
+                </div>
+                <div class="flex justify-between text-lg font-bold">
+                    <span class="font-display">Total</span>
+                    <span id="cart-total" class="text-gold-gradient text-xl">R0</span>
+                </div>
+            </div>
+            
+            <div class="mt-4 space-y-2">
+                <button onclick="openCheckout()" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 text-white py-3.5 rounded-xl font-bold text-lg hover:shadow-lg hover:shadow-amber-500/25 transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2 cursor-pointer">
+                    <span>Checkout Now</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                <button onclick="showClearCartModal()" class="w-full text-zinc-500 hover:text-red-400 py-2 text-sm transition flex items-center justify-center gap-1 opacity-60 hover:opacity-100 cursor-pointer">
+                    <i class="fas fa-trash-alt text-xs"></i>
+                    <span>Clear Cart</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Wishlist Dropdown -->
+        <div id="wishlist-dropdown" class="hidden absolute right-4 top-16 glass-strong rounded-2xl p-6 w-full max-w-md shadow-2xl z-50 border border-pink-500/20">
+            <div class="flex justify-between items-center mb-4 pb-3 border-b border-white/10">
+                <h4 class="font-display font-bold text-xl text-pink-400">Your Wishlist</h4>
+                <button onclick="toggleWishlist()" class="text-zinc-400 hover:text-white">✕</button>
+            </div>
+            
+            <div id="wishlist-items" class="max-h-64 overflow-y-auto space-y-3 mb-4"></div>
+            
+            <div class="border-t border-white/10 pt-4">
+                <button onclick="moveAllToCart()" id="move-all-btn" class="w-full bg-gradient-to-r from-pink-500 to-rose-600 text-white py-3 rounded-xl font-bold hover:shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Move All to Cart</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Backdrop -->
+    <div id="mobile-menu-backdrop" onclick="toggleMobileMenu()"></div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="flex flex-col">
+        <div class="flex justify-between items-center p-6 border-b border-white/10">
+            <span class="text-xl font-bold text-gold-gradient font-display">Menu</span>
+            <button onclick="toggleMobileMenu()" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition text-2xl">✕</button>
+        </div>
+        
+        <div class="flex-1 py-6 flex flex-col gap-1">
+            <div class="px-6 py-3 hover:bg-white/5 cursor-pointer flex items-center gap-3 transition" onclick="navigateTo('shop')">
+                <span class="text-xl">🛍️</span>
+                <div>
+                    <div class="font-semibold">Shop</div>
+                    <div class="text-xs text-zinc-500">Browse Collection</div>
+                </div>
+            </div>
+            <div class="px-6 py-3 hover:bg-white/5 cursor-pointer flex items-center gap-3 transition" onclick="navigateTo('about')">
+                <span class="text-xl">✨</span>
+                <div>
+                    <div class="font-semibold">Our Story</div>
+                    <div class="text-xs text-zinc-500">About VibeVault</div>
+                </div>
+            </div>
+            <div class="px-6 py-3 hover:bg-white/5 cursor-pointer flex items-center gap-3 transition" onclick="navigateTo('testimonials')">
+                <span class="text-xl">⭐</span>
+                <div>
+                    <div class="font-semibold">Reviews</div>
+                    <div class="text-xs text-zinc-500">Customer Love</div>
+                </div>
+            </div>
+            <div class="px-6 py-3 hover:bg-white/5 cursor-pointer flex items-center gap-3 transition" onclick="toggleWishlist(); toggleMobileMenu()">
+                <span class="text-xl">❤️</span>
+                <div>
+                    <div class="font-semibold">Wishlist</div>
+                    <div class="text-xs text-zinc-500">Saved items</div>
+                </div>
+            </div>
+            <div class="px-6 py-3 hover:bg-white/5 cursor-pointer flex items-center gap-3 transition" onclick="navigateTo('contact')">
+                <span class="text-xl">📞</span>
+                <div>
+                    <div class="font-semibold">Contact</div>
+                    <div class="text-xs text-zinc-500">Get in Touch</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="p-6 border-t border-white/10 bg-gradient-to-t from-amber-500/10 to-transparent">
+            <div class="bg-amber-500/20 rounded-lg p-3 mb-4 text-center">
+                <p class="text-xs text-amber-400 font-semibold mb-1">ACTIVE PROMO</p>
+                <p class="text-sm font-bold">Use code VIBE30 for 30% off</p>
+            </div>
+            <button onclick="navigateTo('shop')" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 text-white py-4 rounded-xl font-bold text-center hover:shadow-lg hover:shadow-amber-500/25 transition cursor-pointer">
+                Start Shopping
+            </button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="min-h-[80vh] flex items-center justify-center relative overflow-hidden bg-[radial-gradient(at_center,#18181b_0%,#09090b_100%)] pt-8">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,#f59e0b_0%,transparent_50%)] opacity-20 animate-pulse"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,#14b8a6_0%,transparent_40%)] opacity-20"></div>
+        
+        <div class="absolute top-20 left-10 w-20 h-20 bg-amber-500/20 rounded-full blur-xl animate-float"></div>
+        <div class="absolute bottom-20 right-10 w-32 h-32 bg-teal-500/20 rounded-full blur-xl animate-float" style="animation-delay: 1s;"></div>
+        
+        <div class="max-w-5xl text-center px-6 relative z-10 reveal active">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-sm">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                <span class="text-sm text-zinc-300">Now Delivering Nationwide 🇿🇦</span>
+            </div>
+            
+            <h2 class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-6 font-display leading-tight">
+                <span class="block text-white">Curated for</span>
+                <span class="text-gold-gradient neon-text">Your Vibe</span>
+            </h2>
+            
+            <p class="text-lg md:text-xl text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+                Premium lifestyle essentials for the modern South African. 
+                From tech to threads, elevate your everyday.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#shop" class="group relative px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 rounded-full font-bold text-lg overflow-hidden transition-all hover:scale-105 hover:shadow-lg hover:shadow-amber-500/25 cursor-pointer inline-flex items-center gap-2">
+                    <span class="relative z-10">Shop Collection</span>
+                    <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform relative z-10"></i>
+                </a>
+                <button onclick="showPromoPopup()" class="px-8 py-4 rounded-full font-semibold border border-white/20 hover:bg-white/5 transition-all flex items-center gap-2 cursor-pointer">
+                    <i class="fas fa-gift text-amber-500"></i>
+                    View Offers
+                </button>
+            </div>
+
+            <div class="mt-16 flex flex-wrap justify-center gap-8 text-zinc-500 text-sm">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-truck text-amber-500"></i>
+                    <span>Free Shipping R500+</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-shield-alt text-amber-500"></i>
+                    <span>Secure Checkout</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-undo text-amber-500"></i>
+                    <span>30-Day Returns</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="py-12 border-y border-white/5 bg-zinc-900/30">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="text-center p-4 rounded-xl hover:bg-white/5 transition cursor-pointer group" onclick="Search.filterByCategory('tech')">
+                    <div class="text-3xl mb-2 group-hover:scale-110 transition">⌚</div>
+                    <div class="text-sm font-semibold text-zinc-300">Tech</div>
+                </div>
+                <div class="text-center p-4 rounded-xl hover:bg-white/5 transition cursor-pointer group" onclick="Search.filterByCategory('fashion')">
+                    <div class="text-3xl mb-2 group-hover:scale-110 transition">👕</div>
+                    <div class="text-sm font-semibold text-zinc-300">Fashion</div>
+                </div>
+                <div class="text-center p-4 rounded-xl hover:bg-white/5 transition cursor-pointer group" onclick="Search.filterByCategory('lifestyle')">
+                    <div class="text-3xl mb-2 group-hover:scale-110 transition">🏠</div>
+                    <div class="text-sm font-semibold text-zinc-300">Lifestyle</div>
+                </div>
+                <div class="text-center p-4 rounded-xl hover:bg-white/5 transition cursor-pointer group">
+                    <div class="text-3xl mb-2 group-hover:scale-110 transition">✨</div>
+                    <div class="text-sm font-semibold text-zinc-300">New Drops</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recently Viewed Section -->
+    <section id="recently-viewed" class="py-12 bg-zinc-900/20 border-b border-white/5 hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold font-display">Recently Viewed</h3>
+                <button onclick="RecentlyViewed.clear()" class="text-sm text-zinc-500 hover:text-red-400 transition">Clear</button>
+            </div>
+            <div id="recent-products" class="flex gap-4 overflow-x-auto pb-4 recent-scroll">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Sale Banner -->
+    <div class="bg-gradient-to-r from-amber-600 to-orange-600 py-4 px-6 text-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.1\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
+        <div class="relative z-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <span class="text-2xl font-bold text-white font-display">🔥 FLASH SALE: 30% OFF SITEWIDE</span>
+            <button onclick="document.getElementById('promo-input').value='VIBE30'; applyPromo(); toggleCartDropdown()" class="bg-white text-orange-600 px-6 py-2 rounded-full font-bold hover:scale-105 transition shadow-lg cursor-pointer">
+                Apply VIBE30
+            </button>
+        </div>
+    </div>
+
+    <!-- Shop Section -->
+    <section id="shop" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <span class="text-amber-500 font-semibold text-sm tracking-wider uppercase mb-2 block">The Collection</span>
+                <h3 class="text-4xl md:text-5xl font-bold font-display mb-4">Featured <span class="text-gold-gradient">Vibes</span></h3>
+                <p class="text-zinc-400 max-w-2xl mx-auto">Handpicked essentials for the modern lifestyle. Each item quality-checked and ready to elevate your daily routine.</p>
+            </div>
+
+            <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Products will be dynamically rendered here -->
+            </div>
+            
+            <div class="text-center mt-12 reveal">
+                <button onclick="Search.loadMore()" id="load-more-btn" class="px-8 py-3 border border-amber-500 text-amber-500 rounded-full font-semibold hover:bg-amber-500 hover:text-black transition-all cursor-pointer">
+                    Load More Products
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-zinc-900/30 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6 reveal">
+                    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-amber-500/20 to-orange-600/20 flex items-center justify-center text-2xl text-amber-500">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Free Express Delivery</h3>
+                    <p class="text-zinc-400 text-sm">On orders over R500. Next-day delivery in major cities.</p>
+                </div>
+                <div class="text-center p-6 reveal">
+                    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-amber-500/20 to-orange-600/20 flex items-center justify-center text-2xl text-amber-500">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Secure Shopping</h3>
+                    <p class="text-zinc-400 text-sm">256-bit SSL encryption. Your data is always protected.</p>
+                </div>
+                <div class="text-center p-6 reveal">
+                    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-amber-500/20 to-orange-600/20 flex items-center justify-center text-2xl text-amber-500">
+                        <i class="fas fa-undo"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Easy Returns</h3>
+                    <p class="text-zinc-400 text-sm">30-day hassle-free returns. No questions asked.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,#f59e0b_0%,transparent_40%)] opacity-10"></div>
+        <div class="max-w-5xl mx-auto px-6 text-center relative z-10 reveal">
+            <span class="text-amber-500 font-semibold text-sm tracking-wider uppercase mb-2 block">Our Story</span>
+            <h3 class="text-4xl md:text-6xl font-bold font-display mb-8">Proudly South African.<br><span class="text-gold-gradient">Globally Inspired.</span></h3>
+            <div class="prose prose-invert mx-auto max-w-2xl">
+                <p class="text-lg text-zinc-300 leading-relaxed mb-6">
+                    Born in the heart of Cape Town, VibeVault started with a simple mission: to curate the coolest lifestyle essentials for South Africans who refuse to settle for ordinary.
+                </p>
+                <p class="text-zinc-400 leading-relaxed">
+                    Every item in our vault is handpicked for quality, style, and that unmistakable vibe. From Joburg to Durban, we're here to elevate your everyday.
+                </p>
+            </div>
+            <div class="flex justify-center gap-8 mt-12">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-amber-500 font-display">50K+</div>
+                    <div class="text-sm text-zinc-400">Happy Customers</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-amber-500 font-display">100%</div>
+                    <div class="text-sm text-zinc-400">Authentic Products</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-amber-500 font-display">24/7</div>
+                    <div class="text-sm text-zinc-400">Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-24 bg-zinc-900/50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <span class="text-amber-500 font-semibold text-sm tracking-wider uppercase mb-2 block">Testimonials</span>
+                <h3 class="text-4xl md:text-5xl font-bold font-display">Real <span class="text-gold-gradient">Vibes</span> from Real People</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass rounded-2xl p-6 hover:border-amber-500/30 border border-transparent transition reveal">
+                    <div class="flex gap-1 text-amber-400 mb-4 text-sm">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-zinc-300 mb-6 leading-relaxed">"Fastest delivery I've ever had – arrived next day in Jozi with beautiful packaging. The unboxing experience was everything!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center font-bold text-sm">TM</div>
+                        <div>
+                            <div class="font-semibold text-sm">Thabo M.</div>
+                            <div class="text-xs text-zinc-500">Johannesburg</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-2xl p-6 hover:border-amber-500/30 border border-transparent transition reveal">
+                    <div class="flex gap-1 text-amber-400 mb-4 text-sm">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-zinc-300 mb-6 leading-relaxed">"Premium quality and the customer service is top tier. Had an issue with sizing and they sorted it immediately. 10/10"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center font-bold text-sm">LK</div>
+                        <div>
+                            <div class="font-semibold text-sm">Lerato K.</div>
+                            <div class="text-xs text-zinc-500">Cape Town</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-2xl p-6 hover:border-amber-500/30 border border-transparent transition reveal">
+                    <div class="flex gap-1 text-amber-400 mb-4 text-sm">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-zinc-300 mb-6 leading-relaxed">"Best SA online store I've found. The VIBE30 code saved me so much! Already placed my third order this month."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center font-bold text-sm">SN</div>
+                        <div>
+                            <div class="font-semibold text-sm">Sipho N.</div>
+                            <div class="text-xs text-zinc-500">Durban</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-20 bg-gradient-to-r from-amber-600/20 to-orange-600/20 border-y border-amber-500/20">
+        <div class="max-w-4xl mx-auto px-6 text-center reveal">
+            <h3 class="text-3xl md:text-4xl font-bold font-display mb-4">Join the <span class="text-gold-gradient">Inner Circle</span></h3>
+            <p class="text-zinc-400 mb-8">Get exclusive drops, early access to sales, and 15% off your first order.</p>
+            <form onsubmit="handleNewsletter(event)" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                <input type="email" placeholder="Enter your email" class="flex-1 bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 transition input-glow" required>
+                <button type="submit" class="bg-gradient-to-r from-amber-500 to-orange-600 text-white px-6 py-3 rounded-xl font-bold hover:shadow-lg hover:shadow-amber-500/25 transition whitespace-nowrap cursor-pointer">
+                    Subscribe
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-24">
+        <div class="max-w-2xl mx-auto px-6">
+            <div class="text-center mb-12 reveal">
+                <span class="text-amber-500 font-semibold text-sm tracking-wider uppercase mb-2 block">Get in Touch</span>
+                <h3 class="text-4xl font-bold font-display">Let's <span class="text-gold-gradient">Talk</span></h3>
+            </div>
+            
+            <form onsubmit="handleSubmit(event)" class="space-y-4 reveal">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <input type="text" placeholder="First Name" class="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 transition input-glow" required>
+                    <input type="text" placeholder="Last Name" class="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 transition input-glow">
+                </div>
+                <input type="email" placeholder="Email Address" class="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 transition input-glow" required>
+                <textarea placeholder="Your Message" rows="4" class="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 transition input-glow" required></textarea>
+                <button type="submit" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 text-white py-4 rounded-xl font-bold text-lg hover:shadow-lg hover:shadow-amber-500/25 transition-all transform hover:scale-[1.02] cursor-pointer">
+                    Send Message
+                </button>
+            </form>
+            
+            <div class="mt-12 flex flex-col sm:flex-row justify-center gap-8 text-center reveal">
+                <a href="mailto:support@vibevault.co.za" class="flex items-center justify-center gap-2 text-zinc-400 hover:text-amber-500 transition">
+                    <i class="fas fa-envelope"></i>
+                    support@vibevault.co.za
+                </a>
+                <a href="tel:+27123456789" class="flex items-center justify-center gap-2 text-zinc-400 hover:text-amber-500 transition">
+                    <i class="fas fa-phone"></i>
+                    +27 12 345 6789
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-white/10 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <h2 class="text-2xl font-bold font-display text-gold-gradient mb-4">VibeVault</h2>
+                    <p class="text-zinc-500 mb-4 max-w-sm">Your vault of premium lifestyle essentials. Proudly South African, delivering vibes nationwide since 2026.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-zinc-900 flex items-center justify-center text-zinc-400 hover:bg-amber-500 hover:text-black transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-zinc-900 flex items-center justify-center text-zinc-400 hover:bg-amber-500 hover:text-black transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-zinc-900 flex items-center justify-center text-zinc-400 hover:bg-amber-500 hover:text-black transition"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-zinc-900 flex items-center justify-center text-zinc-400 hover:bg-amber-500 hover:text-black transition"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-zinc-500 text-sm">
+                        <li><a href="#shop" class="hover:text-amber-500 transition">Shop All</a></li>
+                        <li><a href="#about" class="hover:text-amber-500 transition">About Us</a></li>
+                        <li><a href="#testimonials" class="hover:text-amber-500 transition">Reviews</a></li>
+                        <li><a href="#" onclick="toggleUserModal()" class="hover:text-amber-500 transition">My Account</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Support</h4>
+                    <ul class="space-y-2 text-zinc-500 text-sm">
+                        <li><a href="#" class="hover:text-amber-500 transition">FAQ</a></li>
+                        <li><a href="#" class="hover:text-amber-500 transition">Shipping Info</a></li>
+                        <li><a href="#" class="hover:text-amber-500 transition">Returns</a></li>
+                        <li><a href="#" class="hover:text-amber-500 transition">Track Order</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-zinc-600">
+                <p>&copy; 2026 VibeVault. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" onclick="togglePrivacyModal(); return false;" class="hover:text-amber-500 transition">Privacy Policy</a>
+                    <a href="#" onclick="toggleTermsModal(); return false;" class="hover:text-amber-500 transition">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Privacy Policy Modal -->
+    <div id="privacy-modal">
+        <div class="legal-modal-content">
+            <div class="legal-modal-header">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-500">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold font-display text-gold-gradient">Privacy Policy</h3>
+                        <p class="text-xs text-zinc-500">Last updated: March 2026</p>
+                    </div>
+                </div>
+                <button onclick="togglePrivacyModal()" class="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center text-zinc-400 hover:text-white transition">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="legal-modal-body">
+                <div class="legal-section">
+                    <h4>1. Information We Collect</h4>
+                    <p>VibeVault collects information you provide directly to us when you create an account, make a purchase, sign up for our newsletter, or contact our support team. This includes your name, email address, shipping address, phone number, and payment information.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h4>2. How We Use Your Information</h4>
+                    <p>We use your information to:</p>
+                    <ul>
+                        <li>Process and fulfill your orders</li>
+                        <li>Send order confirmations and shipping updates</li>
+                        <li>Provide customer support</li>
+                        <li>Send promotional emails (with your consent)</li>
+                        <li>Improve our website and services</li>
+                    </ul>
+                </div>
+
+                <div class="legal-section">
+                    <h4>3. Cookies & Tracking</h4>
+                    <p>We use cookies to enhance your shopping experience, remember your preferences, and track website usage. You can disable cookies in your browser settings, though this may affect site functionality.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h4>4. Data Security</h4>
+                    <p>We implement industry-standard security measures including SSL encryption to protect your personal information. Payment details are processed securely through our payment partners and are never stored on our servers.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h4>5. Your Rights</h4>
+                    <p>You have the right to access, correct, or delete your personal information. To exercise these rights, please contact us at support@vibevault.co.za. South African residents are protected under POPIA (Protection of Personal Information Act).</p>
+                </div>
+
+                <div class="legal-section">
+                    <h4>6. Contact Us</h4>
+                    <p>If you have questions about this Privacy Policy, please contact us at <a href="mailto:privacy@vibevault.co.za" class="text-amber-500 hover:underline">privacy@vibevault.co.za</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms of Service Modal -->
+    <div id="terms-modal">
+        <div class="legal-modal-content">
+            <div class="legal-modal-header">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-500">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold font-display text-gold-gradient">Terms of Service</h3>
+                        <p class="text-xs text-zinc-500">Last updated: March 2026</p>
+                    </div>
+                </div>
+                <button onclick="toggleTermsModal()" class="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center text-zinc-400 hover:text-white transition">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="legal-modal-body">
+                <div class="legal-section">
+                    <h4>1. Acceptance of Terms</h4>
+                    <p>By accessing and using VibeVault, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, please do not use our website.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h4>2. Orders & Payment</h4>
+                    <p>All prices are listed in South African Rand (ZAR) and include VAT unless stated otherwise. We reserve the right to refuse any order. Payment must be made in full before orders are processed. We accept major credit cards, EFT, and selected digital payment methods.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h4>3. Shipping & Delivery</h4>
+                    <p>We deliver nationwide within South Africa. Delivery times vary by location:</p>
+                    <ul>
+                        <li>Major cities: 1-3 business days</li>
+                        <li>Regional areas: 3-5 business days</li>
+                        <li>Remote areas: 5-7 business days</li>
+                    </ul>
+                    <p>Free shipping applies to orders over R500.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h4>4. Returns & Refunds</h4>
+                    <p>We offer a 30-day return policy for unused items in original packaging. To initiate a return, contact support@vibevault.co.za with your order number. Refunds are processed within 5-7 business days after we receive the returned item.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h4>5. Product Descriptions</h4>
+                    <p>We strive to display products as accurately as possible. However, colors may vary slightly due to screen settings. Product specifications are provided by manufacturers, and we are not responsible for minor variations.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h4>6. Intellectual Property</h4>
+                    <p>All content on VibeVault, including logos, images, text, and designs, is the property of VibeVault and protected by South African and international copyright laws.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h4>7. Limitation of Liability</h4>
+                    <p>VibeVault shall not be liable for any indirect, incidental, or consequential damages arising from the use of our products or website. Our total liability is limited to the purchase price of the item in question.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h4>8. Governing Law</h4>
+                    <p>These terms are governed by the laws of the Republic of South Africa. Any disputes shall be resolved in the courts of Cape Town, South Africa.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h4>9. Contact</h4>
+                    <p>For any legal inquiries, please contact us at <a href="mailto:legal@vibevault.co.za" class="text-amber-500 hover:underline">legal@vibevault.co.za</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="hidden fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4">
+        <div class="glass-strong rounded-3xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto border border-amber-500/20">
+            <div class="flex justify-between items-center mb-6 pb-4 border-b border-white/10">
+                <h3 class="text-2xl font-bold font-display text-gold-gradient">Checkout</h3>
+                <button onclick="closeCheckout()" class="text-zinc-400 hover:text-white text-xl cursor-pointer">✕</button>
+            </div>
+            
+            <div class="space-y-4 mb-6">
+                <div class="bg-zinc-900/50 p-4 rounded-xl">
+                    <h4 class="font-semibold mb-3 text-sm uppercase tracking-wider text-zinc-400">Order Summary</h4>
+                    <div id="checkout-items" class="space-y-2 text-sm"></div>
+                    <div class="border-t border-white/10 mt-3 pt-3 flex justify-between font-bold text-lg">
+                        <span>Total</span>
+                        <span id="checkout-total" class="text-amber-500"></span>
+                    </div>
+                </div>
+                
+                <form id="checkout-form" class="space-y-3" onsubmit="processCheckout(event)">
+                    <div>
+                        <label class="text-xs text-zinc-400 uppercase tracking-wider mb-1 block">Email</label>
+                        <input type="email" class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 focus:border-amber-500 focus:outline-none transition input-glow" placeholder="you@example.com" required>
+                    </div>
+                    <div>
+                        <label class="text-xs text-zinc-400 uppercase tracking-wider mb-1 block">Full Name</label>
+                        <input type="text" class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 focus:border-amber-500 focus:outline-none transition input-glow" placeholder="John Doe" required>
+                    </div>
+                    <div>
+                        <label class="text-xs text-zinc-400 uppercase tracking-wider mb-1 block">Address</label>
+                        <textarea class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 focus:border-amber-500 focus:outline-none transition input-glow" placeholder="123 Main St, Cape Town" rows="2" required></textarea>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="text-xs text-zinc-400 uppercase tracking-wider mb-1 block">City</label>
+                            <input type="text" class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 focus:border-amber-500 focus:outline-none transition input-glow" required>
+                        </div>
+                        <div>
+                            <label class="text-xs text-zinc-400 uppercase tracking-wider mb-1 block">Postal Code</label>
+                            <input type="text" class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 focus:border-amber-500 focus:outline-none transition input-glow" required>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-4">
+                        <button type="submit" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 text-white py-3 rounded-xl font-bold hover:shadow-lg hover:shadow-amber-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer">
+                            <span>Complete Order</span>
+                            <i class="fas fa-lock text-sm"></i>
+                        </button>
+                        <p class="text-center text-xs text-zinc-500 mt-2">
+                            <i class="fas fa-shield-alt mr-1"></i>
+                            Secure SSL Encrypted Transaction
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Account Modal (Placeholder) -->
+    <div id="user-modal">
+        <div class="modal-content text-left">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold font-display text-gold-gradient">My Account</h3>
+                <button onclick="toggleUserModal()" class="text-zinc-400 hover:text-white">✕</button>
+            </div>
+            
+            <div id="auth-section" class="space-y-4">
+                <p class="text-zinc-400 text-sm mb-4">Sign in to access your order history, track shipments, and earn Vibe Points.</p>
+                
+                <input type="email" placeholder="Email" class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3 focus:border-amber-500 focus:outline-none transition">
+                <input type="password" placeholder="Password" class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3 focus:border-amber-500 focus:outline-none transition">
+                
+                <button onclick="showToast('Coming soon! User accounts launching Q2 2026.')" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 text-white py-3 rounded-xl font-bold hover:shadow-lg transition">
+                    Sign In
+                </button>
+                
+                <p class="text-center text-zinc-500 text-sm">
+                    Don't have an account? 
+                    <a href="#" onclick="showToast('Registration opening soon!')" class="text-amber-500 hover:underline">Join VibeVault</a>
+                </p>
+            </div>
+            
+            <!-- Future: Logged in state will show here -->
+            <div id="user-profile-section" class="hidden space-y-4">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center font-bold text-xl">JD</div>
+                    <div>
+                        <div class="font-bold">John Doe</div>
+                        <div class="text-sm text-amber-500">Vibe Starter</div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <div class="bg-zinc-900 p-3 rounded-lg text-center">
+                        <div class="text-2xl font-bold text-amber-500">150</div>
+                        <div class="text-xs text-zinc-400">Vibe Points</div>
+                    </div>
+                    <div class="bg-zinc-900 p-3 rounded-lg text-center">
+                        <div class="text-2xl font-bold text-amber-500">3</div>
+                        <div class="text-xs text-zinc-400">Orders</div>
+                    </div>
+                </div>
+                
+                <button onclick="showToast('Order history coming soon!')" class="w-full bg-zinc-800 hover:bg-zinc-700 text-white py-3 rounded-xl transition mb-2">
+                    Order History
+                </button>
+                <button onclick="showToast('Track shipment feature coming soon!')" class="w-full bg-zinc-800 hover:bg-zinc-700 text-white py-3 rounded-xl transition">
+                    Track Orders
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Themed Clear Cart Modal -->
+    <div id="clear-cart-modal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3 class="text-2xl font-bold font-display mb-2">Clear Your Cart?</h3>
+            <p class="text-zinc-400 mb-6 text-sm">This will remove all items from your shopping cart. This action cannot be undone.</p>
+            <div class="flex gap-3 justify-center">
+                <button onclick="hideClearCartModal()" class="modal-btn modal-btn-cancel cursor-pointer">Cancel</button>
+                <button onclick="confirmClearCart()" class="modal-btn modal-btn-confirm cursor-pointer">
+                    <i class="fas fa-trash-alt mr-2"></i>Clear All
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Promo Popup -->
+    <div id="promo-popup" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[90] flex items-center justify-center p-4">
+        <div class="bg-gradient-to-br from-zinc-900 to-black border border-amber-500/30 rounded-3xl p-8 max-w-md w-full text-center relative overflow-hidden">
+            <button onclick="closePromoPopup()" class="absolute top-4 right-4 text-zinc-500 hover:text-white cursor-pointer">✕</button>
+            <div class="text-5xl mb-4">🎉</div>
+            <h3 class="text-3xl font-bold font-display mb-2 text-gold-gradient">30% OFF!</h3>
+            <p class="text-zinc-400 mb-6">Use code <span class="text-amber-500 font-bold font-mono text-lg">VIBE30</span> at checkout</p>
+            <div class="bg-zinc-800/50 rounded-xl p-4 mb-6">
+                <p class="text-sm text-zinc-300">Limited time offer. Valid for all products storewide.</p>
+            </div>
+            <button onclick="closePromoPopup(); document.getElementById('shop').scrollIntoView({behavior: 'smooth'})" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 text-white py-3 rounded-xl font-bold hover:shadow-lg transition cursor-pointer">
+                Shop Now
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="hidden fixed bottom-6 right-6 glass-strong text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 max-w-sm z-[100]">
+        <span class="text-2xl">✨</span>
+        <div>
+            <p id="toast-text" class="font-medium text-sm"></p>
+        </div>
+    </div>
+
+    <!-- Sticky Bottom Promo (Mobile) -->
+    <div class="sticky-promo md:hidden">
+        <div class="glass-strong rounded-full px-4 py-3 flex items-center gap-3 border border-amber-500/30 shadow-lg shadow-amber-500/10">
+            <span class="text-lg">🔥</span>
+            <div class="flex-1">
+                <p class="text-xs font-bold text-amber-500">VIBE30: 30% OFF</p>
+                <p class="text-[10px] text-zinc-400">Limited time only</p>
+            </div>
+            <button onclick="showPromoPopup()" class="bg-amber-500 text-black px-3 py-1.5 rounded-full text-xs font-bold cursor-pointer">Claim</button>
+        </div>
+    </div>
+
+    <script>
+                        // ==========================================
+        // SHOPIFY INTEGRATION (VERCEL SAFE)
+        // ==========================================
+        const SHOP_DOMAIN = 'your-store-name.myshopify.com';           // ← CHANGE THIS (e.g. vibevault.myshopify.com)
+
+        const STOREFRONT_ACCESS_TOKEN = 'REPLACE_WITH_YOUR_REAL_STOREFRONT_ACCESS_TOKEN'; 
+
+        const GRAPHQL_URL = `https://${SHOP_DOMAIN}/api/2025-01/graphql.json`;
+
+        let products = {};
+
+        async function shopifyGraphQL(query, variables = {}) {
+            const res = await fetch(GRAPHQL_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Shopify-Storefront-Access-Token': STOREFRONT_ACCESS_TOKEN
+                },
+                body: JSON.stringify({ query, variables })
+            });
+            const json = await res.json();
+            if (json.errors) throw new Error(json.errors[0].message);
+            return json.data;
+        }
+
+        async function fetchShopifyProducts() {
+            const query = `
+                query {
+                    products(first: 20) {
+                        edges {
+                            node {
+                                id
+                                title
+                                priceRange { minVariantPrice { amount } }
+                                compareAtPriceRange { minVariantPrice { amount } }
+                                images(first: 1) { edges { node { url } } }
+                                variants(first: 1) {
+                                    edges { node { id price { amount } compareAtPrice { amount } } }
+                                }
+                            }
+                        }
+                    }
+                }
+            `;
+            try {
+                const data = await shopifyGraphQL(query);
+                products = {};
+                data.products.edges.forEach((edge, index) => {
+                    const n = edge.node;
+                    const variant = n.variants.edges[0]?.node;
+                    const price = parseInt(variant?.price?.amount || n.priceRange.minVariantPrice.amount) || 0;
+                    const original = parseInt(variant?.compareAtPrice?.amount || n.compareAtPriceRange?.minVariantPrice?.amount || price * 1.43);
+                    const prodId = parseInt(n.id.split('/').pop());
+                    products[prodId] = {
+                        id: prodId,
+                        shopifyVariantId: variant?.id,
+                        name: n.title,
+                        price: price,
+                        original: original,
+                        category: ['tech', 'fashion', 'lifestyle'][index % 3],
+                        emoji: '🛍️',
+                        image: n.images.edges[0]?.node.url || '',
+                        badge: original > price ? '-30%' : null,
+                        badgeColor: original > price ? 'bg-red-500' : null
+                    };
+                });
+                Search.renderProducts(Object.values(products));
+                document.getElementById('showing-count').textContent = Object.keys(products).length;
+                RecentlyViewed.render();
+            } catch (err) {
+                console.error(err);
+                showToast('Could not load products – check domain & token');
+            }
+        }
+
+        // ==========================================
+        // STATE MANAGEMENT (with LocalStorage)
+        // ==========================================
+        let cart = JSON.parse(localStorage.getItem('vibevault_cart') || '[]');
+        let wishlist = JSON.parse(localStorage.getItem('vibevault_wishlist') || '[]');
+        let discountApplied = localStorage.getItem('vibevault_discount') === 'true';
+        let discountAmount = parseInt(localStorage.getItem('vibevault_discount_amount') || '0');
+        let lastClickTime = {};
+        const SPAM_COOLDOWN = 1500;
+
+        // ==========================================
+        // CART STORAGE SYSTEM
+        // ==========================================
+        const CartStorage = {
+            save: function(cart) {
+                localStorage.setItem('vibevault_cart', JSON.stringify(cart));
+                localStorage.setItem('vibevault_cart_timestamp', Date.now());
+            }
+        };
+
+        // ==========================================
+        // RECENTLY VIEWED SYSTEM
+        // ==========================================
+        const RecentlyViewed = {
+            maxItems: 6,
+            
+            add: function(productId) {
+                let recent = JSON.parse(localStorage.getItem('vibevault_recent') || '[]');
+                recent = recent.filter(id => id !== productId);
+                recent.unshift(productId);
+                recent = recent.slice(0, this.maxItems);
+                localStorage.setItem('vibevault_recent', JSON.stringify(recent));
+                this.render();
+            },
+            
+            render: function() {
+                const recentIds = JSON.parse(localStorage.getItem('vibevault_recent') || '[]');
+                const container = document.getElementById('recent-products');
+                const section = document.getElementById('recently-viewed');
+                
+                if (recentIds.length === 0) {
+                    section.classList.add('hidden');
+                    return;
+                }
+                
+                section.classList.remove('hidden');
+                container.innerHTML = recentIds.map(id => {
+                    const product = products[id];
+                    if (!product) return '';
+                    return `
+                        <div onclick="scrollToProduct(${product.id})" class="flex-shrink-0 w-40 glass rounded-xl p-3 cursor-pointer hover:border-amber-500/50 transition border border-transparent group">
+                            <div class="text-3xl mb-2 text-center group-hover:scale-110 transition-transform">${product.emoji}</div>
+                            <h4 class="font-semibold text-sm mb-1 truncate">${product.name}</h4>
+                            <p class="text-amber-500 font-bold text-sm">R${product.price}</p>
+                        </div>
+                    `;
+                }).join('');
+            },
+            
+            clear: function() {
+                localStorage.removeItem('vibevault_recent');
+                document.getElementById('recently-viewed').classList.add('hidden');
+                showToast('Recently viewed cleared');
+            }
+        };
+
+        // ==========================================
+        // ADVANCED SEARCH & FILTER SYSTEM
+        // ==========================================
+        const Search = {
+            currentFilters: {
+                query: '',
+                priceRange: '',
+                sort: 'featured',
+                category: ''
+            },
+            
+            handleInput: function(query) {
+                this.currentFilters.query = query.toLowerCase();
+                const suggestions = document.getElementById('search-suggestions');
+                
+                if (query.length < 2) {
+                    suggestions.classList.add('hidden');
+                    this.applyFilters();
+                    return;
+                }
+                
+                const matches = Object.values(products).filter(p => 
+                    p.name.toLowerCase().includes(query.toLowerCase())
+                ).slice(0, 5);
+                
+                if (matches.length === 0) {
+                    suggestions.innerHTML = '<div class="p-4 text-zinc-500 text-center">No products found</div>';
+                } else {
+                    suggestions.innerHTML = matches.map(p => `
+                        <div onclick="Search.selectSuggestion(${p.id})" class="p-3 hover:bg-zinc-700 cursor-pointer flex justify-between items-center border-b border-zinc-700 last:border-0">
+                            <span class="flex items-center gap-2"><span class="text-xl">${p.emoji}</span> ${p.name}</span>
+                            <span class="text-amber-500 font-bold">R${p.price}</span>
+                        </div>
+                    `).join('');
+                }
+                
+                suggestions.classList.remove('hidden');
+                this.applyFilters();
+            },
+            
+            selectSuggestion: function(productId) {
+                document.getElementById('search-suggestions').classList.add('hidden');
+                document.getElementById('product-search').value = products[productId].name;
+                this.currentFilters.query = products[productId].name.toLowerCase();
+                this.applyFilters();
+                scrollToProduct(productId);
+            },
+            
+            applyFilters: function() {
+                this.currentFilters.priceRange = document.getElementById('price-filter').value;
+                this.currentFilters.sort = document.getElementById('sort-filter').value;
+                
+                let filtered = Object.values(products);
+                
+                // Text search
+                if (this.currentFilters.query) {
+                    filtered = filtered.filter(p => 
+                        p.name.toLowerCase().includes(this.currentFilters.query)
+                    );
+                }
+                
+                // Category filter
+                if (this.currentFilters.category) {
+                    filtered = filtered.filter(p => p.category === this.currentFilters.category);
+                }
+                
+                // Price filter
+                if (this.currentFilters.priceRange) {
+                    if (this.currentFilters.priceRange === '0-200') {
+                        filtered = filtered.filter(p => p.price < 200);
+                    } else if (this.currentFilters.priceRange === '200-500') {
+                        filtered = filtered.filter(p => p.price >= 200 && p.price <= 500);
+                    } else if (this.currentFilters.priceRange === '500+') {
+                        filtered = filtered.filter(p => p.price > 500);
+                    }
+                }
+                
+                // Sort
+                if (this.currentFilters.sort === 'price-low') {
+                    filtered.sort((a, b) => a.price - b.price);
+                } else if (this.currentFilters.sort === 'price-high') {
+                    filtered.sort((a, b) => b.price - a.price);
+                }
+                
+                this.renderProducts(filtered);
+                document.getElementById('showing-count').textContent = filtered.length;
+                document.getElementById('results-count').classList.remove('hidden');
+            },
+            
+                        renderProducts: function(productList) {
+                const container = document.getElementById('products-grid');
+                if (productList.length === 0) {
+                    container.innerHTML = '<div class="col-span-full text-center py-12"><div class="text-6xl mb-4">🔍</div><h3 class="text-xl font-bold mb-2">No products found</h3><p class="text-zinc-400">Try adjusting your search or filters</p><button onclick="Search.clearFilters()" class="mt-4 text-amber-500 hover:underline">Clear all filters</button></div>';
+                    return;
+                }
+                let html = '';
+                productList.forEach(product => {
+                    const imageHTML = product.image 
+                        ? '<img src="' + product.image + '" alt="' + product.name + '" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">' 
+                        : '<span class="group-hover:scale-110 transition-transform duration-500">' + product.emoji + '</span>';
+                    const badgeHTML = product.badge 
+                        ? '<div class="absolute top-3 right-3 ' + product.badgeColor + ' text-white text-xs font-bold px-2 py-1 rounded badge-pulse">' + product.badge + '</div>' 
+                        : '';
+                    const heartClass = wishlist.some(w => w.id === product.id) ? 'active text-pink-500' : 'text-white';
+                    html += '<div class="product-card glass rounded-2xl overflow-hidden group" data-id="' + product.id + '" data-category="' + product.category + '">' +
+                        '<div class="h-56 relative overflow-hidden">' + imageHTML + badgeHTML +
+                        '<button onclick="event.stopPropagation(); toggleWishlistItem(' + product.id + ')" ' +
+                        'class="absolute top-3 left-3 w-8 h-8 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center transition hover:bg-black/50 z-10 wishlist-heart ' + heartClass + '" ' +
+                        'data-wishlist-id="' + product.id + '">' +
+                        '<i class="fas fa-heart text-sm"></i></button></div>' +
+                        '<div class="p-5">' +
+                        '<div class="flex justify-between items-start mb-2"><h4 class="font-semibold text-lg">' + product.name + '</h4>' +
+                        '<div class="text-right"><div class="text-amber-500 font-bold">R' + product.price + '</div>' +
+                        (product.original > product.price ? '<div class="text-zinc-500 text-xs line-through">R' + product.original + '</div>' : '') +
+                        '</div></div>' +
+                        '<div class="flex items-center gap-3 mb-4">' +
+                        '<button onclick="updateQty(' + product.id + ', -1)" class="qty-btn w-8 h-8 rounded-lg bg-zinc-800 hover:bg-zinc-700 flex items-center justify-center transition text-sm">-</button>' +
+                        '<span id="qty-' + product.id + '" class="font-semibold w-4 text-center text-lg">1</span>' +
+                        '<button onclick="updateQty(' + product.id + ', 1)" class="qty-btn w-8 h-8 rounded-lg bg-zinc-800 hover:bg-zinc-700 flex items-center justify-center transition text-sm">+</button>' +
+                        '</div>' +
+                        '<button onclick="addToCart(' + product.id + ')" class="add-to-cart-btn w-full bg-zinc-800 hover:bg-gradient-to-r hover:from-amber-500 hover:to-orange-600 text-white py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2">' +
+                        '<i class="fas fa-shopping-bag text-sm"></i><span>Add to Cart</span></button>' +
+                        '</div></div>';
+                });
+                container.innerHTML = html;
+            },
+            
+            filterByCategory: function(category) {
+                this.currentFilters.category = category;
+                document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+                this.applyFilters();
+                showToast(`Showing ${category} items`);
+            },
+            
+            clearFilters: function() {
+                document.getElementById('product-search').value = '';
+                document.getElementById('price-filter').value = '';
+                document.getElementById('sort-filter').value = 'featured';
+                this.currentFilters = { query: '', priceRange: '', sort: 'featured', category: '' };
+                this.renderProducts(Object.values(products));
+                document.getElementById('showing-count').textContent = '8';
+            },
+            
+            loadMore: function() {
+                showToast('More products coming in next drop! 🚀');
+            }
+        };
+
+        // ==========================================
+        // CORE CART FUNCTIONS
+        // ==========================================
+        function updateQty(productId, change) {
+            const qtyEl = document.getElementById(`qty-${productId}`);
+            let current = parseInt(qtyEl.textContent);
+            let newQty = Math.max(1, current + change);
+            qtyEl.textContent = newQty;
+        }
+
+        function addToCart(productId) {
+            const now = Date.now();
+            if (lastClickTime[productId] && (now - lastClickTime[productId]) < SPAM_COOLDOWN) {
+                showToast('Please wait before adding again');
+                return;
+            }
+            lastClickTime[productId] = now;
+            
+            try {
+                const qtyEl = document.getElementById(`qty-${productId}`);
+                const qty = parseInt(qtyEl.textContent);
+                const product = products[productId];
+                
+                if (!product) {
+                    showToast("Error: Product not found");
+                    return;
+                }
+
+                const existing = cart.find(item => item.id === productId);
+                if (existing) {
+                    existing.qty += qty;
+                } else {
+                    cart.push({ id: productId, name: product.name, price: product.price, qty: qty });
+                }
+
+                qtyEl.textContent = '1';
+                CartStorage.save(cart);
+                updateCartUI();
+                showToast(`✓ Added ${qty}x ${product.name}`);
+                
+                // Track recently viewed (treating add to cart as interest)
+                RecentlyViewed.add(productId);
+                
+                const btn = event.target.closest('button');
+                const originalHTML = btn.innerHTML;
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-check"></i> Added';
+                btn.classList.add('bg-green-600');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.classList.remove('bg-green-600');
+                    btn.disabled = false;
+                }, SPAM_COOLDOWN);
+
+                if (cart.length === 1 && cart[0].qty === qty) {
+                    setTimeout(() => {
+                        document.getElementById('cart-dropdown').classList.remove('hidden');
+                    }, 500);
+                }
+
+            } catch (error) {
+                console.error("Add to cart error:", error);
+                showToast("Error adding to cart");
+            }
+        }
+
+        function updateCartUI() {
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            const cartCount = document.getElementById('cart-count');
+            cartCount.textContent = totalItems;
+            
+            if (totalItems > 0) {
+                cartCount.classList.add('badge-pulse');
+            } else {
+                cartCount.classList.remove('badge-pulse');
+            }
+            
+            renderCart();
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items');
+            container.innerHTML = '';
+            
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-zinc-500">
+                        <div class="text-4xl mb-2">🛒</div>
+                        <p>Your cart is empty</p>
+                        <button onclick="navigateTo('shop'); toggleCartDropdown();" class="text-amber-500 text-sm mt-2 hover:underline cursor-pointer">Start Shopping</button>
+                    </div>
+                `;
+                document.getElementById('cart-subtotal').textContent = 'R0';
+                document.getElementById('cart-total').textContent = 'R0';
+                document.getElementById('discount-row').classList.add('hidden');
+                return;
+            }
+
+            cart.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'cart-item flex justify-between items-center p-3 rounded-lg bg-zinc-800/30';
+                div.innerHTML = `
+                    <div class="flex-1">
+                        <div class="font-medium text-sm">${item.name}</div>
+                        <div class="text-xs text-zinc-500">R${item.price} × ${item.qty}</div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-amber-500 font-bold">R${item.price * item.qty}</span>
+                        <button onclick="removeFromCart(${index})" class="text-zinc-500 hover:text-red-400 transition w-6 h-6 flex items-center justify-center rounded hover:bg-red-500/10 cursor-pointer">
+                            <i class="fas fa-times text-xs"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+            document.getElementById('cart-subtotal').textContent = `R${subtotal}`;
+            
+            if (discountApplied) {
+                discountAmount = Math.round(subtotal * 0.3);
+                const total = subtotal - discountAmount;
+                document.getElementById('discount-amount').textContent = `-R${discountAmount}`;
+                document.getElementById('discount-row').classList.remove('hidden');
+                document.getElementById('cart-total').textContent = `R${total}`;
+            } else {
+                document.getElementById('discount-row').classList.add('hidden');
+                document.getElementById('cart-total').textContent = `R${subtotal}`;
+            }
+            
+            localStorage.setItem('vibevault_discount', discountApplied);
+            localStorage.setItem('vibevault_discount_amount', discountAmount);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            CartStorage.save(cart);
+            updateCartUI();
+            showToast('Item removed');
+        }
+
+        function toggleCartDropdown() {
+            const dropdown = document.getElementById('cart-dropdown');
+            dropdown.classList.toggle('hidden');
+            if (!dropdown.classList.contains('hidden')) {
+                renderCart();
+            }
+        }
+
+        function applyPromo() {
+            const input = document.getElementById('promo-input');
+            const message = document.getElementById('promo-message');
+            const code = input.value.trim().toUpperCase();
+            
+            if (code === 'VIBE30') {
+                if (!discountApplied) {
+                    discountApplied = true;
+                    renderCart();
+                    message.textContent = '✓ 30% discount applied!';
+                    message.className = 'text-xs mt-1 text-green-400';
+                    message.classList.remove('hidden');
+                    showToast('Promo code applied! 30% off', 5000);
+                    createConfetti();
+                } else {
+                    message.textContent = 'Code already applied';
+                    message.className = 'text-xs mt-1 text-amber-400';
+                    message.classList.remove('hidden');
+                }
+            } else {
+                message.textContent = '✗ Invalid code. Try VIBE30';
+                message.className = 'text-xs mt-1 text-red-400';
+                message.classList.remove('hidden');
+            }
+        }
+
+        function showClearCartModal() {
+            if (cart.length === 0) {
+                showToast('Cart is already empty');
+                return;
+            }
+            document.getElementById('clear-cart-modal').classList.add('active');
+        }
+
+        function hideClearCartModal() {
+            document.getElementById('clear-cart-modal').classList.remove('active');
+        }
+
+        function confirmClearCart() {
+            cart = [];
+            discountApplied = false;
+            CartStorage.save(cart);
+            updateCartUI();
+            toggleCartDropdown();
+            hideClearCartModal();
+            showToast('Cart cleared');
+        }
+
+        // ==========================================
+        // WISHLIST SYSTEM
+        // ==========================================
+        function toggleWishlist() {
+            const dropdown = document.getElementById('wishlist-dropdown');
+            const isHidden = dropdown.classList.contains('hidden');
+            
+            // Close cart if open
+            document.getElementById('cart-dropdown').classList.add('hidden');
+            
+            if (isHidden) {
+                renderWishlist();
+                dropdown.classList.remove('hidden');
+            } else {
+                dropdown.classList.add('hidden');
+            }
+        }
+
+        function toggleWishlistItem(productId) {
+            const product = products[productId];
+            const existingIndex = wishlist.findIndex(item => item.id === productId);
+            
+            if (existingIndex > -1) {
+                wishlist.splice(existingIndex, 1);
+                showToast('Removed from wishlist');
+            } else {
+                wishlist.push({ id: productId, ...product, addedAt: Date.now() });
+                showToast('Added to wishlist ❤️');
+            }
+            
+            localStorage.setItem('vibevault_wishlist', JSON.stringify(wishlist));
+            updateWishlistUI();
+            
+            // Update all heart icons
+            document.querySelectorAll(`[data-wishlist-id="${productId}"]`).forEach(btn => {
+                btn.classList.toggle('text-pink-500', existingIndex === -1);
+                btn.classList.toggle('text-white', existingIndex > -1);
+                btn.classList.toggle('active', existingIndex === -1);
+            });
+        }
+
+        function updateWishlistUI() {
+            const count = document.getElementById('wishlist-count');
+            count.textContent = wishlist.length;
+            count.classList.toggle('hidden', wishlist.length === 0);
+        }
+
+        function renderWishlist() {
+            const container = document.getElementById('wishlist-items');
+            const btn = document.getElementById('move-all-btn');
+            
+            if (wishlist.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-zinc-500">
+                        <div class="text-4xl mb-2">💝</div>
+                        <p>Your wishlist is empty</p>
+                        <button onclick="toggleWishlist(); navigateTo('shop');" class="text-pink-500 text-sm mt-2 hover:underline">Start Shopping</button>
+                    </div>
+                `;
+                btn.classList.add('hidden');
+                return;
+            }
+            
+            btn.classList.remove('hidden');
+            container.innerHTML = wishlist.map((item, index) => `
+                <div class="flex justify-between items-center p-3 bg-zinc-800/30 rounded-lg border border-white/5">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">${item.emoji}</span>
+                        <div>
+                            <div class="font-medium text-sm">${item.name}</div>
+                            <div class="text-amber-500 font-bold text-sm">R${item.price}</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="addToCart(${item.id}); updateQty(${item.id}, 1)" class="bg-amber-600 hover:bg-amber-500 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                            Add to Cart
+                        </button>
+                        <button onclick="removeFromWishlist(${index})" class="text-zinc-500 hover:text-red-400 transition px-2">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function removeFromWishlist(index) {
+            const item = wishlist[index];
+            wishlist.splice(index, 1);
+            localStorage.setItem('vibevault_wishlist', JSON.stringify(wishlist));
+            updateWishlistUI();
+            renderWishlist();
+            
+            // Update heart icon in grid
+            document.querySelectorAll(`[data-wishlist-id="${item.id}"]`).forEach(btn => {
+                btn.classList.remove('text-pink-500', 'active');
+                btn.classList.add('text-white');
+            });
+            
+            showToast('Removed from wishlist');
+        }
+
+        function moveAllToCart() {
+            wishlist.forEach(item => {
+                const existing = cart.find(c => c.id === item.id);
+                if (existing) {
+                    existing.qty += 1;
+                } else {
+                    cart.push({ id: item.id, name: item.name, price: item.price, qty: 1 });
+                }
+            });
+            CartStorage.save(cart);
+            updateCartUI();
+            showToast(`${wishlist.length} items moved to cart!`);
+            wishlist = [];
+            localStorage.setItem('vibevault_wishlist', JSON.stringify(wishlist));
+            updateWishlistUI();
+            toggleWishlist();
+            toggleCartDropdown();
+            
+            // Reset all heart icons
+            document.querySelectorAll('.wishlist-heart').forEach(btn => {
+                btn.classList.remove('text-pink-500', 'active');
+                btn.classList.add('text-white');
+            });
+        }
+
+        // ==========================================
+        // CHECKOUT & USER SYSTEM
+        // ==========================================
+        function openCheckout() {
+            if (cart.length === 0) {
+                showToast('Your cart is empty!');
+                return;
+            }
+            document.getElementById('cart-dropdown').classList.add('hidden');
+            
+            const container = document.getElementById('checkout-items');
+            container.innerHTML = '';
+            cart.forEach(item => {
+                container.innerHTML += `
+                    <div class="flex justify-between py-1">
+                        <span>${item.name} × ${item.qty}</span>
+                        <span class="text-zinc-300">R${item.price * item.qty}</span>
+                    </div>
+                `;
+            });
+            
+            const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+            const total = discountApplied ? subtotal - discountAmount : subtotal;
+            document.getElementById('checkout-total').textContent = `R${total}`;
+            
+            document.getElementById('checkout-modal').classList.remove('hidden');
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+        }
+
+        function processCheckout(e) {
+            e.preventDefault();
+            closeCheckout();
+            createConfetti();
+            showToast('Order placed successfully! Check your email.', 5000);
+            
+            // Save order to localStorage (for future order history)
+            const order = {
+                id: 'VV' + Date.now(),
+                items: [...cart],
+                total: document.getElementById('checkout-total').textContent,
+                date: new Date().toISOString(),
+                status: 'Processing'
+            };
+            
+            let orders = JSON.parse(localStorage.getItem('vibevault_orders') || '[]');
+            orders.unshift(order);
+            localStorage.setItem('vibevault_orders', JSON.stringify(orders));
+            
+            cart = [];
+            discountApplied = false;
+            CartStorage.save(cart);
+            updateCartUI();
+        }
+
+        function toggleUserModal() {
+            const modal = document.getElementById('user-modal');
+            modal.classList.toggle('active');
+        }
+
+        // ==========================================
+        // LEGAL MODALS
+        // ==========================================
+        function togglePrivacyModal() {
+            const modal = document.getElementById('privacy-modal');
+            modal.classList.toggle('active');
+            if (modal.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleTermsModal() {
+            const modal = document.getElementById('terms-modal');
+            modal.classList.toggle('active');
+            if (modal.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        // ==========================================
+        // UI UTILITIES
+        // ==========================================
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const backdrop = document.getElementById('mobile-menu-backdrop');
+            
+            if (menu.classList.contains('active')) {
+                menu.classList.remove('active');
+                backdrop.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            } else {
+                menu.classList.add('active');
+                backdrop.classList.add('active');
+                document.body.classList.add('menu-open');
+            }
+        }
+
+        function navigateTo(sectionId) {
+            const menu = document.getElementById('mobile-menu');
+            const backdrop = document.getElementById('mobile-menu-backdrop');
+            
+            menu.classList.remove('active');
+            backdrop.classList.remove('active');
+            document.body.classList.remove('menu-open');
+            
+            setTimeout(() => {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 300);
+        }
+
+        function scrollToProduct(productId) {
+            document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+            // Highlight product briefly
+            setTimeout(() => {
+                const card = document.querySelector(`[data-id="${productId}"]`);
+                if (card) {
+                    card.style.transform = 'scale(1.05)';
+                    card.style.boxShadow = '0 0 40px rgba(245, 158, 11, 0.5)';
+                    setTimeout(() => {
+                        card.style.transform = '';
+                        card.style.boxShadow = '';
+                    }, 1000);
+                }
+            }, 500);
+        }
+
+        function showPromoPopup() {
+            document.getElementById('promo-popup').classList.remove('hidden');
+        }
+
+        function closePromoPopup() {
+            document.getElementById('promo-popup').classList.add('hidden');
+        }
+
+        function showToast(message, duration = 3000) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-text').textContent = message;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, duration);
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            showToast('Message sent! We\'ll reply within 24 hours.');
+            e.target.reset();
+        }
+
+        function handleNewsletter(e) {
+            e.preventDefault();
+            createConfetti();
+            showToast('Welcome to the inner circle! Check your email.', 5000);
+            e.target.reset();
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                confetti.style.backgroundColor = ['#f59e0b', '#14b8a6', '#ffffff'][Math.floor(Math.random() * 3)];
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+
+        // ==========================================
+        // INITIALIZATION
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Render initial products
+                        fetchShopifyProducts();   // ← loads real products from Shopify
+            
+            // Initialize UI
+            updateCartUI();
+            updateWishlistUI();
+            RecentlyViewed.render();
+            
+            // Scroll Reveal
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            // Countdown Timer
+            function updateCountdown() {
+                const now = new Date();
+                const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+                const diff = endOfDay - now;
+                
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / (1000 * 60)) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+                
+                const countdownEl = document.getElementById('countdown');
+                if (countdownEl) {
+                    countdownEl.innerHTML = `
+                        <span class="bg-black text-white px-1.5 rounded">${String(hours).padStart(2, '0')}</span>:
+                        <span class="bg-black text-white px-1.5 rounded">${String(minutes).padStart(2, '0')}</span>:
+                        <span class="bg-black text-white px-1.5 rounded">${String(seconds).padStart(2, '0')}</span>
+                    `;
+                }
+            }
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('#cart-dropdown') && !e.target.closest('[onclick="toggleCartDropdown()"]')) {
+                    document.getElementById('cart-dropdown').classList.add('hidden');
+                }
+                if (!e.target.closest('#wishlist-dropdown') && !e.target.closest('[onclick="toggleWishlist()"]') && !e.target.closest('[onclick="toggleWishlistItem"]')) {
+                    document.getElementById('wishlist-dropdown').classList.add('hidden');
+                }
+                if (!e.target.closest('#search-suggestions') && !e.target.closest('#product-search')) {
+                    document.getElementById('search-suggestions').classList.add('hidden');
+                }
+                
+                // Close legal modals when clicking outside
+                const privacyModal = document.getElementById('privacy-modal');
+                const termsModal = document.getElementById('terms-modal');
+                if (e.target === privacyModal) {
+                    togglePrivacyModal();
+                }
+                if (e.target === termsModal) {
+                    toggleTermsModal();
+                }
+                
+                const modal = document.getElementById('clear-cart-modal');
+                if (e.target === modal) {
+                    hideClearCartModal();
+                }
+                const userModal = document.getElementById('user-modal');
+                if (e.target === userModal) {
+                    toggleUserModal();
+                }
+            });
+
+            // Escape key handler
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    document.getElementById('mobile-menu').classList.remove('active');
+                    document.getElementById('mobile-menu-backdrop').classList.remove('active');
+                    document.getElementById('checkout-modal').classList.add('hidden');
+                    document.getElementById('promo-popup').classList.add('hidden');
+                    document.getElementById('cart-dropdown').classList.add('hidden');
+                    document.getElementById('wishlist-dropdown').classList.add('hidden');
+                    
+                    // Close legal modals
+                    document.getElementById('privacy-modal').classList.remove('active');
+                    document.getElementById('terms-modal').classList.remove('active');
+                    document.body.style.overflow = '';
+                    
+                    hideClearCartModal();
+                    toggleUserModal();
+                    document.body.classList.remove('menu-open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
